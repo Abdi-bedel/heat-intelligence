@@ -2,6 +2,17 @@
 
 Monorepo for the Verified Login Portal (`venues.getheatapp.com`), the B2B marketing site (`intelligence.getheatapp.com`), and the Hono API + cron that powers both.
 
+**This is the B2B product.** The consumer side (mobile app, venue ingestion, public feeds, and the B2B *provider* surface) lives in the sister repository: `heat-app`.
+
+See heat-app's:
+- `docs/api/b2b_integration_requirements.md`
+- `docs/api/openapi.yaml` § B2B Integration
+- `backend/hono/src/services/b2b-link.ts` + B2B middleware/routes
+
+The intended runtime boundary is narrow: this repo calls heat-app over the authenticated B2B HTTP surface (service tokens + `X-Heat-B2B-Client`) for check-ins, engagement events, live counts, etc. The nightly recompute (E7) is explicitly designed *not* to read consumer tables directly.
+
+A pragmatic direct-DB bridge (for venue claims and "log in with Heat Intelligence credentials from the consumer marketing site") lives in heat-app's `marketing/` and `apps/admin/`. The schema for that bridge is checked into this repo under `supabase/bridge/`. See heat-app's `marketing/README.md` (Heat Intelligence Postgres setup section) for current setup instructions.
+
 See [PLANNING.md](PLANNING.md) for the technical roadmap and [API_CONTRACT.md](API_CONTRACT.md) for the endpoint spec.
 
 ## Layout
