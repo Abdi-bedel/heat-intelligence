@@ -3,6 +3,7 @@ import { cors } from 'hono/cors';
 import { venueRouter } from './routes/venue';
 import { publicRouter } from './routes/public';
 import { adminRouter } from './routes/admin';
+import { claimsRouter } from './routes/claims';
 
 const app = new Hono();
 
@@ -27,6 +28,7 @@ app.get('/health', (c) => c.json({ ok: true, ts: new Date().toISOString() }));
 app.route('/v1/venue', venueRouter);
 app.route('/v1/public', publicRouter);
 app.route('/v1/admin', adminRouter);
+app.route('/v1/claims', claimsRouter);
 
 app.notFound((c) => c.json({ error: 'not_found' }, 404));
 app.onError((err, c) => {

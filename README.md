@@ -11,7 +11,11 @@ See heat-app's:
 
 The intended runtime boundary is narrow: this repo calls heat-app over the authenticated B2B HTTP surface (service tokens + `X-Heat-B2B-Client`) for check-ins, engagement events, live counts, etc. The nightly recompute (E7) is explicitly designed *not* to read consumer tables directly.
 
-A pragmatic direct-DB bridge (for venue claims and "log in with Heat Intelligence credentials from the consumer marketing site") lives in heat-app's `marketing/` and `apps/admin/`. The schema for that bridge is checked into this repo under `supabase/bridge/`. See heat-app's `marketing/README.md` (Heat Intelligence Postgres setup section) for current setup instructions.
+The onboarding/claims flow (venue claims, self-serve BetterAuth account creation for owners, status checks from consumer marketing) is now fully owned by this repo via the API (`/v1/claims/submit`, `/v1/claims/status`, admin claims routes). 
+
+The consumer marketing site in the sister repo provides discovery UI and thin proxies only. No direct DB access from heat-app for claims.
+
+Schema in `supabase/bridge/`. See heat-app `marketing/HEAT_INTELLIGENCE_BRIDGE.md` and root `HEAT-INTELLIGENCE.md`.
 
 See [PLANNING.md](PLANNING.md) for the technical roadmap and [API_CONTRACT.md](API_CONTRACT.md) for the endpoint spec.
 

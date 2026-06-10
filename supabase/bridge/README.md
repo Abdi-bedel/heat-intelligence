@@ -14,25 +14,24 @@ These tables are in addition to the core intelligence schema in `../migrations/0
 
 ## Who applies this?
 
-The sister repo's marketing and admin tools need these tables to exist before the claim/login UI can be used.
+These tables are internal to heat-intelligence. All claim submission, BetterAuth user creation for self-serve onboarding, profile/claim records, and review now execute inside heat-intelligence code (see `apps/api/src/routes/claims.ts` and admin claims routes).
 
-See heat-app:
-- `marketing/README.md` → "Heat Intelligence Postgres setup"
-- `marketing/HEAT_INTELLIGENCE_BRIDGE.md`
-- `marketing/app/api/venue-claims/_lib.ts` (the `createHeatIntelligenceDb` + BetterAuth wiring)
-- `apps/admin/lib/heat-intelligence/db.ts`
+The consumer marketing (heat-app) only hosts discovery UI and thin proxies calling our `/v1/claims/*` (and admin) endpoints. There is no direct DB access from heat-app for claims/onboarding anymore.
+
+See:
+- heat-app `marketing/HEAT_INTELLIGENCE_BRIDGE.md` and root `HEAT-INTELLIGENCE.md`
+- This repo `apps/api/src/routes/claims.ts`
 
 ## How the schema is maintained
 
-- The BetterAuth part is generated from the config that lives in the sister repo (`heat-app/marketing/auth.ts`).
-- After generation, the `.sql` is copied here (or the generation is run against a checkout that can reach this file).
-- The claims/mirror tables were initially created via the file that lived in heat-app's `marketing/db/`. Ownership moved here as part of repo separation for clarity (2026-06).
+- The BetterAuth part can be generated from config inside this repo if needed (the old config lived in the sister marketing for the initial bridge).
+- The claims/mirror tables and logic ownership moved here as part of completing the "completely separate" architecture (2026-06).
 
-## Long-term direction
+## Current state
 
-As the onboarding bridge is hardened or moved to API-driven flows owned by this repo, some of these tables may evolve or be replaced by proper application tables with their own migrations here.
+Onboarding/claims (submission, BetterAuth provisioning, review) are fully API-driven and owned here. The consumer marketing site only provides discovery UI and proxies. No direct DB coupling from the sister repo for this flow.
 
-For now they are the minimal surface that lets the consumer marketing site + admin create verified venue logins without the venue owner having to go through a separate signup flow first.
+The tables support the self-serve claim path (parallel to main Supabase-auth `venue_users` for in-person verified logins). They may be unified over time.
 
 ## Applying locally / in new environments
 

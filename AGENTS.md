@@ -10,7 +10,7 @@ The consumer side (Flutter app, main venue catalog, ingestion pipelines, public 
   - Uses `HEAT_APP_B2B_TOKEN` (or legacy `CONSUMER_API_INTERNAL_TOKEN`) + `HEAT_APP_API_BASE_URL`.
   - All data reads for check-ins, engagement events, live-counts go through this.
   - The `b2b_venue_link` table + resolution lives in heat-app. Never guess consumer `locations.id`.
-- **Onboarding bridge (pragmatic coupling)**: Venue claims, "log in from consumer marketing", and admin review of claims are implemented with direct Postgres + BetterAuth against *this* DB from code that lives in heat-app (`marketing/app/api/venue-claims/*`, `apps/admin/lib/heat-intelligence/db.ts`, etc.).
+- **Onboarding (owned here)**: Venue claims, BetterAuth user creation for self-serve owners, claim requests, and review are implemented inside this repo (API routes in `apps/api/src/routes/claims.ts` and admin). The sister repo (heat-app) only has discovery UI + thin proxies calling our `/v1/claims/*` endpoints. Direct DB access from heat-app has been removed.
   - The SQL for the bridge tables lives here: `supabase/bridge/`.
   - See heat-app `marketing/README.md` (Heat Intelligence Postgres setup) for current run instructions.
 - When the B2B contract or link table changes, coordinate with the heat-app side (docs/api/ in that repo).
