@@ -1,0 +1,36 @@
+# Fly config for the venue API. Deploy with: `fly deploy --config apps/api/fly.toml`
+# from the repo root once `fly launch` has set up the app.
+
+app = "heat-intelligence-api"
+primary_region = "mad"  # Madrid — closest to Barcelona consumer base
+
+[build]
+  builder = "Dockerfile"
+
+[env]
+  PORT = "8787"
+  NODE_ENV = "production"
+
+[http_service]
+  internal_port = 8787
+  force_https = true
+  auto_stop_machines = "stop"   # save money — venue traffic is sparse
+  auto_start_machines = true
+  min_machines_running = 0
+
+  [[http_service.checks]]
+    interval = "30s"
+    timeout = "5s"
+    grace_period = "10s"
+    method = "GET"
+    path = "/health"
+
+# Nightly cron — 06:00 Europe/Madrid (= 04:00 UTC during BST, 05:00 UTC standard).
+# Use 04:00 UTC for now and adjust seasonally if needed.
+[[mounts]]
+  source = "noop"
+  destination = "/noop"
+
+[processes]
+  app = "bun run src/index.ts"
+  # Cron is fired by `fly machine run` from a scheduled trigger; see ops/README.

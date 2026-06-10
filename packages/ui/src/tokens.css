@@ -1,0 +1,40 @@
+/* Heat Intelligence design tokens — lifted verbatim from ux-guide/heat-design-spec.md §1 */
+
+:root {
+  --bg: #faf8f5;
+  --bg-secondary: #f3eee7;
+  --bg-card: #ffffff;
+
+  --text-primary: #1a1612;
+  --text-secondary: #6b6359;
+  --text-tertiary: #a39a8e;
+
+  --border: #e7e0d6;
+  --border-strong: #d4cabc;
+
+  --coral: #d85a30;
+  --coral-soft: rgba(216, 90, 48, 0.08);
+  --coral-text: #993c1d;
+
+  --teal: #1d9e75;
+  --teal-soft: rgba(29, 158, 117, 0.1);
+  --teal-text: #0f6e56;
+
+  --purple: #7f77dd;
+  --purple-soft: rgba(127, 119, 221, 0.12);
+  --purple-text: #3c3489;
+
+  --amber: #ef9f27;
+  --amber-soft: rgba(239, 159, 39, 0.12);
+  --amber-text: #8a5500;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.5; transform: scale(0.85); }
+}
+
+@keyframes pulse-now {
+  0%, 100% { opacity: 0.4; }
+  50%      { opacity: 0.9; }
+}

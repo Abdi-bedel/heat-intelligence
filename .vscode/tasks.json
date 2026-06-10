@@ -1,0 +1,17 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "wait-for-portal-9000",
+      "type": "shell",
+      "command": "bash -lc 'for i in {1..240}; do nc -z localhost 9000 && exit 0; sleep 0.5; done; echo timeout waiting for localhost:9000; exit 1'",
+      "problemMatcher": []
+    },
+    {
+      "label": "wait-for-marketing-9001",
+      "type": "shell",
+      "command": "bash -lc 'for i in {1..240}; do nc -z localhost 9001 && exit 0; sleep 0.5; done; echo timeout waiting for localhost:9001; exit 1'",
+      "problemMatcher": []
+    }
+  ]
+}

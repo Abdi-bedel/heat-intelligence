@@ -1,0 +1,143 @@
+@import '@heat/ui/tokens.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #000000;
+  --bg-secondary: #070910;
+  --bg-card: #0a0b11;
+
+  --text-primary: #ffffff;
+  --text-secondary: #bbc3d8;
+  --text-tertiary: #8e98b1;
+
+  --border: rgba(255, 255, 255, 0.18);
+  --border-strong: rgba(255, 255, 255, 0.34);
+
+  --coral: #ff2200;
+  --coral-soft: rgba(255, 34, 0, 0.2);
+  --coral-text: #ff8f7d;
+
+  --teal: #5eabe1;
+  --teal-soft: rgba(94, 171, 225, 0.2);
+  --teal-text: #a2d8ff;
+
+  --purple: #1f51ff;
+  --purple-soft: rgba(31, 81, 255, 0.24);
+  --purple-text: #96adff;
+
+  --amber: #ff0ff3;
+  --amber-soft: rgba(255, 15, 243, 0.22);
+  --amber-text: #ffa0fb;
+}
+
+html[data-theme='light'] {
+  --bg: #f8f7f4;
+  --bg-secondary: #f1eee8;
+  --bg-card: #ffffff;
+
+  --text-primary: #17171c;
+  --text-secondary: #4f5463;
+  --text-tertiary: #7a8297;
+
+  --border: rgba(23, 26, 35, 0.16);
+  --border-strong: rgba(23, 26, 35, 0.28);
+
+  --coral: #ff2200;
+  --coral-soft: rgba(255, 34, 0, 0.1);
+  --coral-text: #c02910;
+
+  --teal: #2f95d3;
+  --teal-soft: rgba(94, 171, 225, 0.14);
+  --teal-text: #186ea4;
+
+  --purple: #1f51ff;
+  --purple-soft: rgba(31, 81, 255, 0.12);
+  --purple-text: #2b49be;
+
+  --amber: #ff0ff3;
+  --amber-soft: rgba(255, 15, 243, 0.12);
+  --amber-text: #b815af;
+}
+
+html, body {
+  color-scheme: dark;
+  background:
+    radial-gradient(120% 95% at 10% -10%, rgba(255, 15, 243, 0.2) 0%, rgba(255, 15, 243, 0) 52%),
+    radial-gradient(95% 75% at 100% 0%, rgba(31, 81, 255, 0.22) 0%, rgba(31, 81, 255, 0) 58%),
+    radial-gradient(85% 70% at 50% 108%, rgba(255, 34, 0, 0.16) 0%, rgba(255, 34, 0, 0) 62%),
+    linear-gradient(180deg, #000000 0%, #020208 40%, #05060e 100%);
+  color: var(--text-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+html[data-theme='light'],
+html[data-theme='light'] body {
+  color-scheme: light;
+  background:
+    radial-gradient(100% 70% at 8% -10%, rgba(255, 34, 0, 0.11) 0%, rgba(255, 34, 0, 0) 56%),
+    radial-gradient(92% 64% at 100% 0%, rgba(31, 81, 255, 0.12) 0%, rgba(31, 81, 255, 0) 62%),
+    radial-gradient(70% 58% at 54% 104%, rgba(255, 15, 243, 0.09) 0%, rgba(255, 15, 243, 0) 64%),
+    linear-gradient(180deg, #fcfbf8 0%, #f4f3ef 45%, #efeee9 100%);
+}
+
+.dashboard-shell {
+  position: relative;
+  isolation: isolate;
+}
+
+.dashboard-shell::before {
+  content: '';
+  position: absolute;
+  inset: 18px 10px;
+  z-index: -1;
+  background:
+    radial-gradient(35% 28% at 12% 10%, rgba(255, 34, 0, 0.18), transparent 70%),
+    radial-gradient(32% 26% at 86% 22%, rgba(31, 81, 255, 0.2), transparent 72%),
+    radial-gradient(28% 22% at 52% 82%, rgba(255, 15, 243, 0.16), transparent 72%);
+  filter: blur(26px);
+  opacity: 0.95;
+  pointer-events: none;
+}
+
+html[data-theme='light'] .dashboard-shell::before {
+  background:
+    radial-gradient(35% 30% at 10% 8%, rgba(255, 34, 0, 0.1), transparent 72%),
+    radial-gradient(30% 25% at 84% 18%, rgba(31, 81, 255, 0.11), transparent 72%),
+    radial-gradient(28% 22% at 52% 82%, rgba(255, 15, 243, 0.08), transparent 74%);
+  filter: blur(18px);
+  opacity: 0.9;
+}
+
+.dashboard-shell > .dashboard-frame {
+  border-color: var(--border);
+  background-color: var(--bg-card);
+  background-image: linear-gradient(
+    158deg,
+    rgba(14, 16, 24, 0.95) 0%,
+    rgba(10, 11, 18, 0.94) 48%,
+    rgba(6, 7, 12, 0.94) 100%
+  );
+  box-shadow:
+    0 28px 52px -34px rgba(0, 0, 0, 0.85),
+    0 2px 14px rgba(0, 0, 0, 0.45),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+}
+
+html[data-theme='light'] .dashboard-shell > .dashboard-frame {
+  background-image: linear-gradient(
+    155deg,
+    rgba(255, 255, 255, 0.96) 0%,
+    rgba(247, 246, 242, 0.98) 48%,
+    rgba(240, 239, 234, 0.98) 100%
+  );
+  box-shadow:
+    0 22px 42px -34px rgba(24, 29, 44, 0.35),
+    0 1px 8px rgba(24, 29, 44, 0.1),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.9);
+}

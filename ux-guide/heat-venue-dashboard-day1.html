@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bar Marsella · Heat Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #faf8f5;
+  --bg-secondary: #f3eee7;
+  --bg-card: #ffffff;
+  --text-primary: #1a1612;
+  --text-secondary: #6b6359;
+  --text-tertiary: #a39a8e;
+  --border: #e7e0d6;
+  --border-strong: #d4cabc;
+  --coral: #d85a30;
+  --coral-soft: rgba(216, 90, 48, 0.08);
+  --coral-text: #993c1d;
+  --teal: #1d9e75;
+  --teal-soft: rgba(29, 158, 117, 0.1);
+  --teal-text: #0f6e56;
+  --purple: #7f77dd;
+  --purple-soft: rgba(127, 119, 221, 0.12);
+  --purple-text: #3c3489;
+  --serif: 'Fraunces', Georgia, serif;
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { font-family: var(--sans); color: var(--text-primary); background: var(--bg); line-height: 1.5; font-size: 14px; -webkit-font-smoothing: antialiased; }
+body { max-width: 1200px; margin: 0 auto; padding: 24px; }
+
+.dash { background: var(--bg-card); border-radius: 16px; border: 0.5px solid var(--border); overflow: hidden; }
+
+.topbar { display: flex; justify-content: space-between; align-items: center; padding: 14px 24px; border-bottom: 0.5px solid var(--border); background: var(--bg-secondary); }
+.topbar-brand { display: flex; align-items: center; gap: 10px; }
+.topbar-brand .name { font-family: var(--serif); font-size: 16px; font-weight: 500; letter-spacing: -0.01em; }
+.topbar-brand .pill { font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-secondary); padding: 2px 7px; border: 0.5px solid var(--border); border-radius: 3px; }
+.topbar-right { display: flex; align-items: center; gap: 16px; font-size: 12px; color: var(--text-secondary); }
+.topbar-right .item { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+.avatar { width: 22px; height: 22px; background: var(--bg-card); border-radius: 50%; border: 0.5px solid var(--border); display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 500; }
+
+.header { padding: 32px 36px 28px; border-bottom: 0.5px solid var(--border); display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px; }
+.crumb { font-size: 11px; letter-spacing: 0.1em; color: var(--text-tertiary); text-transform: uppercase; margin-bottom: 8px; font-weight: 500; }
+.venue-name { font-family: var(--serif); font-size: 32px; font-weight: 500; letter-spacing: -0.025em; line-height: 1.05; display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.vmark { width: 24px; height: 24px; background: var(--teal); border-radius: 50%; color: white; font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; }
+.meta-line { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.meta-pill { font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500; padding: 4px 9px; border-radius: 4px; }
+.meta-pill.founding { background: var(--coral-soft); color: var(--coral-text); }
+.meta-pill.locked { background: var(--teal-soft); color: var(--teal-text); display: inline-flex; align-items: center; gap: 5px; }
+.header-right { text-align: right; }
+.last-updated { font-size: 11px; color: var(--text-tertiary); display: flex; align-items: center; gap: 6px; justify-content: flex-end; }
+.last-updated .dot { width: 6px; height: 6px; background: var(--teal); border-radius: 50%; }
+.day-counter { font-family: var(--serif); font-size: 14px; font-weight: 500; margin-top: 4px; }
+
+.body { padding: 28px 36px 36px; display: flex; flex-direction: column; gap: 22px; }
+.section-tag { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 10px; font-weight: 500; }
+
+.welcome { background: var(--coral-soft); border: 0.5px solid rgba(216, 90, 48, 0.25); border-radius: 12px; padding: 18px 22px; display: flex; align-items: flex-start; gap: 14px; }
+.welcome-icon { width: 32px; height: 32px; border-radius: 8px; background: var(--coral); color: white; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+.welcome-title { font-family: var(--serif); font-size: 16px; font-weight: 500; letter-spacing: -0.01em; margin-bottom: 4px; }
+.welcome-text { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+.welcome-text a { color: var(--coral); font-weight: 500; cursor: pointer; }
+
+.tiles-block { display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap: 8px; }
+.tile { background: var(--bg-secondary); border-radius: 12px; padding: 18px 20px; display: flex; flex-direction: column; min-height: 120px; }
+.tile-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 8px; font-weight: 500; }
+.tile-value { font-family: var(--serif); font-size: 32px; font-weight: 500; letter-spacing: -0.025em; line-height: 1; margin-bottom: 6px; font-variant-numeric: tabular-nums; }
+.tile-delta { font-size: 11px; }
+.tile-delta.up { color: var(--teal); }
+.tile-delta.down { color: var(--coral); }
+.tile-delta.flat { color: var(--text-tertiary); }
+.tile-spark { margin-top: auto; height: 28px; width: 100%; }
+.tile-spark path { fill: none; stroke: var(--text-secondary); stroke-width: 1.5; stroke-linecap: round; }
+.tile-spark .area { stroke: none; fill: var(--text-secondary); opacity: 0.1; }
+
+.empty-block { background: var(--bg-secondary); border-radius: 12px; padding: 22px 26px; display: grid; grid-template-columns: 1.7fr 1fr; gap: 28px; align-items: center; }
+.empty-head { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.empty-status { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 500; padding: 4px 9px; border-radius: 4px; background: var(--purple-soft); color: var(--purple-text); display: inline-flex; align-items: center; gap: 5px; }
+.empty-status::before { content: ''; width: 5px; height: 5px; background: var(--purple); border-radius: 50%; animation: pulse-dot 1.6s ease-in-out infinite; }
+@keyframes pulse-dot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.85); } }
+.empty-name { font-family: var(--serif); font-size: 17px; font-weight: 500; letter-spacing: -0.01em; }
+.empty-line { font-family: var(--serif); font-size: 16px; line-height: 1.5; margin-bottom: 8px; }
+.empty-line em { color: var(--text-tertiary); font-style: normal; }
+.empty-detail { font-size: 12px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px; }
+.empty-progress { display: flex; flex-direction: column; gap: 8px; }
+.empty-progress-bar { display: flex; gap: 4px; }
+.empty-progress-bar .seg { flex: 1; height: 4px; background: var(--border-strong); border-radius: 2px; }
+.empty-progress-bar .seg.done { background: var(--coral); }
+.empty-progress-bar .seg.now { background: var(--coral); opacity: 0.4; animation: now 1.6s ease-in-out infinite; }
+@keyframes now { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.9; } }
+.empty-progress-meta { display: flex; justify-content: space-between; font-size: 10px; color: var(--text-tertiary); letter-spacing: 0.08em; text-transform: uppercase; }
+.now-text { color: var(--text-primary); font-weight: 500; }
+.empty-viz { background: var(--bg-card); border: 0.5px dashed var(--border-strong); border-radius: 8px; padding: 16px; height: 110px; position: relative; display: flex; align-items: center; justify-content: center; }
+.empty-viz svg { width: 100%; height: 100%; opacity: 0.35; }
+.empty-viz svg path, .empty-viz svg line { stroke: var(--text-tertiary); stroke-width: 1; fill: none; stroke-dasharray: 3 3; }
+
+.vd-footer { border-top: 0.5px solid var(--border); padding: 18px 36px; display: flex; justify-content: space-between; font-size: 11px; color: var(--text-tertiary); flex-wrap: wrap; gap: 8px; }
+.vd-footer a { color: var(--text-tertiary); cursor: pointer; text-decoration: none; }
+.vd-footer a:hover { color: var(--text-primary); }
+.vd-footer-links { display: flex; gap: 16px; }
+
+@media (max-width: 720px) {
+  .tiles-block { grid-template-columns: 1fr 1fr; }
+  .empty-block { grid-template-columns: 1fr; }
+  body { padding: 12px; }
+  .header, .body { padding-left: 24px; padding-right: 24px; }
+}
+</style>
+</head>
+<body>
+
+<div class="dash">
+  <div class="topbar">
+    <div class="topbar-brand">
+      <span class="name">Heat</span>
+      <span class="pill">venues</span>
+    </div>
+    <div class="topbar-right">
+      <span class="item">Help</span>
+      <span class="item"><span class="avatar">M</span><span>marsella@…</span></span>
+    </div>
+  </div>
+
+  <div class="header">
+    <div>
+      <div class="crumb">Verified venue · El Born</div>
+      <div class="venue-name">
+        <span>Bar Marsella</span>
+        <span class="vmark">✓</span>
+      </div>
+      <div class="meta-line">
+        <span class="meta-pill founding">Founding 50 · #19</span>
+        <span class="meta-pill locked">🔒 €49/mo locked forever</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="last-updated"><span class="dot"></span><span>Last updated · today, 06:02</span></div>
+      <div class="day-counter">Day 3 of pilot</div>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <div class="welcome">
+      <div class="welcome-icon">✦</div>
+      <div>
+        <div class="welcome-title">Welcome to your dashboard, Bar Marsella.</div>
+        <div class="welcome-text">Your tile is live in the consumer app. Tile metrics are real from today. The neighbourhood comparison line and pattern data unlock as Heat data accumulates over the next few weeks. We'll show you exactly when. <a>Read the data journey →</a></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-tag">Tile metrics · Live from Day 1</div>
+      <div class="tiles-block">
+        <div class="tile">
+          <div class="tile-label">Tile views this week</div>
+          <div class="tile-value">847</div>
+          <div class="tile-delta up">+12% vs. last week</div>
+          <svg class="tile-spark" viewBox="0 0 100 28" preserveAspectRatio="none"><path class="area" d="M 0 22 L 14 20 L 28 18 L 42 16 L 56 17 L 70 14 L 84 11 L 100 8 L 100 28 L 0 28 Z"/><path d="M 0 22 L 14 20 L 28 18 L 42 16 L 56 17 L 70 14 L 84 11 L 100 8"/></svg>
+        </div>
+        <div class="tile">
+          <div class="tile-label">Hours tap-throughs</div>
+          <div class="tile-value">142</div>
+          <div class="tile-delta up">+8%</div>
+          <svg class="tile-spark" viewBox="0 0 100 28" preserveAspectRatio="none"><path class="area" d="M 0 20 L 25 17 L 50 15 L 75 12 L 100 10 L 100 28 L 0 28 Z"/><path d="M 0 20 L 25 17 L 50 15 L 75 12 L 100 10"/></svg>
+        </div>
+        <div class="tile">
+          <div class="tile-label">Directions tap-throughs</div>
+          <div class="tile-value">98</div>
+          <div class="tile-delta flat">+1%</div>
+          <svg class="tile-spark" viewBox="0 0 100 28" preserveAspectRatio="none"><path class="area" d="M 0 16 L 25 15 L 50 16 L 75 15 L 100 15 L 100 28 L 0 28 Z"/><path d="M 0 16 L 25 15 L 50 16 L 75 15 L 100 15"/></svg>
+        </div>
+        <div class="tile">
+          <div class="tile-label">Website tap-throughs</div>
+          <div class="tile-value">31</div>
+          <div class="tile-delta down">−4%</div>
+          <svg class="tile-spark" viewBox="0 0 100 28" preserveAspectRatio="none"><path class="area" d="M 0 12 L 25 13 L 50 15 L 75 16 L 100 18 L 100 28 L 0 28 Z"/><path d="M 0 12 L 25 13 L 50 15 L 75 16 L 100 18"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-tag">Check-ins this week</div>
+      <div class="empty-block">
+        <div>
+          <div class="empty-head"><span class="empty-status">Building</span><span class="empty-name">Check-in count</span></div>
+          <p class="empty-line">You'll see check-in counts as soon as the consumer app accumulates a stable baseline for your venue.</p>
+          <p class="empty-detail">Check-ins are organic signals from Heat users picking your venue tonight. We hold the number until 7 days of activity — not because the data isn't there, but because tiny early counts are misleading.</p>
+          <div class="empty-progress">
+            <div class="empty-progress-bar"><div class="seg done"></div><div class="seg done"></div><div class="seg done"></div><div class="seg now"></div><div class="seg"></div><div class="seg"></div><div class="seg"></div></div>
+            <div class="empty-progress-meta"><span><span class="now-text">Day 3</span> of 7</span><span>Unlocks ~ May 11</span></div>
+          </div>
+        </div>
+        <div class="empty-viz"><svg viewBox="0 0 200 80" preserveAspectRatio="none"><line x1="0" y1="60" x2="200" y2="60"/><path d="M 10 50 Q 50 40 100 35 Q 150 30 190 25"/></svg></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-tag">Neighbourhood comparison · The killer line</div>
+      <div class="empty-block">
+        <div>
+          <div class="empty-head"><span class="empty-status">Building</span><span class="empty-name">El Born baseline</span></div>
+          <p class="empty-line">"You're at <em>__%</em> of the average heat for bars in El Born this week."</p>
+          <p class="empty-detail">This is the line you're paying for. We unlock it when the comparison is statistically honest — at least 10 venues with 20+ check-ins each in your neighbourhood. El Born has 6 active venues right now. Adding more every week.</p>
+          <div class="empty-progress">
+            <div class="empty-progress-bar"><div class="seg done"></div><div class="seg done"></div><div class="seg done"></div><div class="seg done"></div><div class="seg done"></div><div class="seg done"></div><div class="seg now"></div><div class="seg"></div><div class="seg"></div><div class="seg"></div></div>
+            <div class="empty-progress-meta"><span><span class="now-text">6 of 10</span> venues active</span><span>Unlocks at 10</span></div>
+          </div>
+        </div>
+        <div class="empty-viz"><svg viewBox="0 0 200 80" preserveAspectRatio="none"><line x1="0" y1="40" x2="200" y2="40"/><path d="M 10 50 Q 50 40 100 35 Q 150 30 190 28"/><path d="M 10 60 Q 50 55 100 52 Q 150 48 190 45"/></svg></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-tag">Peak hours</div>
+      <div class="empty-block">
+        <div>
+          <div class="empty-head"><span class="empty-status">Building</span><span class="empty-name">4-week peak hours pattern</span></div>
+          <p class="empty-line">When does your venue actually peak? Hourly heat across the last 4 weeks.</p>
+          <p class="empty-detail">Peak hours need 4 full weeks to filter out one-off events. Partial data shows after Week 1.</p>
+          <div class="empty-progress">
+            <div class="empty-progress-bar"><div class="seg done"></div><div class="seg now"></div><div class="seg"></div><div class="seg"></div></div>
+            <div class="empty-progress-meta"><span><span class="now-text">Week 1</span> of 4</span><span>Full pattern · Week 4</span></div>
+          </div>
+        </div>
+        <div class="empty-viz"><svg viewBox="0 0 200 80" preserveAspectRatio="none"><line x1="0" y1="60" x2="200" y2="60"/><path d="M 10 55 Q 30 50 50 45 Q 80 30 110 25 Q 140 30 170 45 Q 185 55 195 58"/></svg></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-tag">Day-of-week pattern</div>
+      <div class="empty-block">
+        <div>
+          <div class="empty-head"><span class="empty-status">Building</span><span class="empty-name">7-day rhythm</span></div>
+          <p class="empty-line">Which night of the week is yours? Average heat per weekday.</p>
+          <p class="empty-detail">Day-of-week patterns require 4 full weeks so each weekday has a fair sample.</p>
+          <div class="empty-progress">
+            <div class="empty-progress-bar"><div class="seg done"></div><div class="seg now"></div><div class="seg"></div><div class="seg"></div></div>
+            <div class="empty-progress-meta"><span><span class="now-text">Week 1</span> of 4</span><span>Unlocks Week 4</span></div>
+          </div>
+        </div>
+        <div class="empty-viz"><svg viewBox="0 0 200 80" preserveAspectRatio="none"><line x1="0" y1="60" x2="200" y2="60"/><line x1="20" y1="50" x2="20" y2="60"/><line x1="50" y1="40" x2="50" y2="60"/><line x1="80" y1="30" x2="80" y2="60"/><line x1="110" y1="20" x2="110" y2="60"/><line x1="140" y1="15" x2="140" y2="60"/><line x1="170" y1="25" x2="170" y2="60"/></svg></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="vd-footer">
+    <span>Heat Intelligence · Bar Marsella · venue ID 0019</span>
+    <div class="vd-footer-links"><a>Buy a Spotlight</a><a>Email support</a><a>Logout</a></div>
+  </div>
+</div>
+
+</body>
+</html>

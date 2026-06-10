@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bar Marsella · Heat Intelligence · Week 12</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #faf8f5;
+  --bg-secondary: #f3eee7;
+  --bg-card: #ffffff;
+  --text-primary: #1a1612;
+  --text-secondary: #6b6359;
+  --text-tertiary: #a39a8e;
+  --border: #e7e0d6;
+  --border-strong: #d4cabc;
+  --coral: #d85a30;
+  --coral-soft: rgba(216, 90, 48, 0.08);
+  --coral-text: #993c1d;
+  --teal: #1d9e75;
+  --teal-soft: rgba(29, 158, 117, 0.1);
+  --teal-text: #0f6e56;
+  --serif: 'Fraunces', Georgia, serif;
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { font-family: var(--sans); color: var(--text-primary); background: var(--bg); line-height: 1.5; font-size: 14px; -webkit-font-smoothing: antialiased; }
+body { max-width: 1200px; margin: 0 auto; padding: 24px; }
+
+.dash { background: var(--bg-card); border-radius: 16px; border: 0.5px solid var(--border); overflow: hidden; }
+
+.topbar { display: flex; justify-content: space-between; align-items: center; padding: 14px 24px; border-bottom: 0.5px solid var(--border); background: var(--bg-secondary); }
+.topbar-brand { display: flex; align-items: center; gap: 10px; }
+.topbar-brand .name { font-family: var(--serif); font-size: 16px; font-weight: 500; letter-spacing: -0.01em; }
+.topbar-brand .pill { font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-secondary); padding: 2px 7px; border: 0.5px solid var(--border); border-radius: 3px; }
+.topbar-right { display: flex; align-items: center; gap: 16px; font-size: 12px; color: var(--text-secondary); }
+.topbar-right .item { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+.avatar { width: 22px; height: 22px; background: var(--bg-card); border-radius: 50%; border: 0.5px solid var(--border); display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 500; }
+
+.header { padding: 32px 36px 28px; border-bottom: 0.5px solid var(--border); display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px; }
+.crumb { font-size: 11px; letter-spacing: 0.1em; color: var(--text-tertiary); text-transform: uppercase; margin-bottom: 8px; font-weight: 500; }
+.venue-name { font-family: var(--serif); font-size: 32px; font-weight: 500; letter-spacing: -0.025em; line-height: 1.05; display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.vmark { width: 24px; height: 24px; background: var(--teal); border-radius: 50%; color: white; font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; }
+.meta-line { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.meta-pill { font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500; padding: 4px 9px; border-radius: 4px; }
+.meta-pill.founding { background: var(--coral-soft); color: var(--coral-text); }
+.meta-pill.locked { background: var(--teal-soft); color: var(--teal-text); display: inline-flex; align-items: center; gap: 5px; }
+.header-right { text-align: right; }
+.last-updated { font-size: 11px; color: var(--text-tertiary); display: flex; align-items: center; gap: 6px; justify-content: flex-end; }
+.last-updated .dot { width: 6px; height: 6px; background: var(--teal); border-radius: 50%; }
+.day-counter { font-family: var(--serif); font-size: 14px; font-weight: 500; margin-top: 4px; }
+
+.body { padding: 28px 36px 36px; display: flex; flex-direction: column; gap: 22px; }
+.section-tag { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 10px; font-weight: 500; }
+
+.tiles-block { display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap: 8px; }
+.tile { background: var(--bg-secondary); border-radius: 12px; padding: 18px 20px; display: flex; flex-direction: column; min-height: 120px; }
+.tile-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 8px; font-weight: 500; }
+.tile-value { font-family: var(--serif); font-size: 32px; font-weight: 500; letter-spacing: -0.025em; line-height: 1; margin-bottom: 6px; font-variant-numeric: tabular-nums; }
+.tile-up { font-size: 11px; color: var(--teal); }
+.tile-spark { margin-top: auto; height: 28px; width: 100%; }
+.tile-spark path { fill: none; stroke: var(--text-secondary); stroke-width: 1.5; stroke-linecap: round; }
+.tile-spark .area { stroke: none; fill: var(--text-secondary); opacity: 0.1; }
+
+.killer { background: var(--bg-secondary); border-radius: 12px; padding: 28px 32px; display: grid; grid-template-columns: 1.4fr 1fr; gap: 32px; align-items: center; }
+.killer-line { font-family: var(--serif); font-size: 26px; font-weight: 400; line-height: 1.3; letter-spacing: -0.02em; margin-bottom: 14px; }
+.killer-line .accent { color: var(--coral); font-weight: 500; }
+.killer-line .name { font-weight: 500; }
+.killer-meta { font-size: 12px; color: var(--text-secondary); display: flex; gap: 20px; flex-wrap: wrap; }
+.killer-meta strong { color: var(--text-primary); font-weight: 500; }
+.killer-chart { background: var(--bg-card); border-radius: 8px; padding: 16px; height: 130px; }
+.killer-chart svg { width: 100%; height: 100%; overflow: visible; }
+.label-mini { font-size: 9px; letter-spacing: 0.06em; text-transform: uppercase; fill: var(--text-tertiary); font-family: var(--sans); }
+
+.checkin-block { background: var(--bg-secondary); border-radius: 12px; padding: 24px 28px; display: grid; grid-template-columns: 1fr 1.5fr; gap: 28px; align-items: center; }
+.checkin-num { font-family: var(--serif); font-size: 64px; font-weight: 500; letter-spacing: -0.035em; line-height: 1; font-variant-numeric: tabular-nums; }
+.checkin-label { font-size: 11px; color: var(--text-tertiary); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 8px; font-weight: 500; }
+.checkin-up { font-size: 13px; color: var(--teal); font-weight: 500; margin-top: 10px; }
+.checkin-trend svg { width: 100%; height: 80px; overflow: visible; }
+
+.pattern-block { background: var(--bg-secondary); border-radius: 12px; padding: 24px 28px; }
+.pattern-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; }
+.pattern-title { font-family: var(--serif); font-size: 16px; font-weight: 500; letter-spacing: -0.01em; }
+.pattern-detail { font-size: 12px; color: var(--text-secondary); }
+.pattern-detail .peak { color: var(--coral); font-weight: 500; }
+.peak-chart { height: 130px; }
+.peak-chart svg { width: 100%; height: 100%; overflow: visible; }
+
+.dow-chart { display: flex; align-items: flex-end; gap: 8px; height: 140px; padding: 0 4px; }
+.dow-day { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.dow-bar { width: 100%; max-width: 60px; background: var(--text-secondary); border-radius: 4px; opacity: 0.45; position: relative; }
+.dow-bar.peak { background: var(--coral); opacity: 1; }
+.dow-label { font-size: 11px; color: var(--text-tertiary); letter-spacing: 0.05em; }
+.dow-bar-value { font-family: var(--serif); font-size: 11px; font-weight: 500; position: absolute; top: -18px; left: 50%; transform: translateX(-50%); white-space: nowrap; }
+
+.vd-footer { border-top: 0.5px solid var(--border); padding: 18px 36px; display: flex; justify-content: space-between; font-size: 11px; color: var(--text-tertiary); flex-wrap: wrap; gap: 8px; }
+.vd-footer a { color: var(--text-tertiary); cursor: pointer; text-decoration: none; }
+.vd-footer-links { display: flex; gap: 16px; }
+
+@media (max-width: 720px) {
+  .tiles-block { grid-template-columns: 1fr 1fr; }
+  .killer, .checkin-block { grid-template-columns: 1fr; }
+  body { padding: 12px; }
+  .header, .body { padding-left: 24px; padding-right: 24px; }
+}
+</style>
+</head>
+<body>
+
+<div class="dash">
+  <div class="topbar">
+    <div class="topbar-brand"><span class="name">Heat</span><span class="pill">venues</span></div>
+    <div class="topbar-right">
+      <span class="item">Help</span>
+      <span class="item"><span class="avatar">M</span><span>marsella@…</span></span>
+    </div>
+  </div>
+
+  <div class="header">
+    <div>
+      <div class="crumb">Verified venue · El Born</div>
+      <div class="venue-name"><span>Bar Marsella</span><span class="vmark">✓</span></div>
+      <div class="meta-line">
+        <span class="meta-pill founding">Founding 50 · #19</span>
+        <span class="meta-pill locked">🔒 €49/mo locked forever</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="last-updated"><span class="dot"></span><span>Last updated · today, 06:02</span></div>
+      <div class="day-counter">Week 12 of pilot</div>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <div>
+      <div class="section-tag">Tile metrics · Live</div>
+      <div class="tiles-block">
+        <div class="tile">
+          <div class="tile-label">Tile views this week</div>
+          <div class="tile-value">2,481</div>
+          <div class="tile-up">+18% vs. last week</div>
+          <svg class="tile-spark" viewBox="0 0 100 28" preserveAspectRatio="none"><path class="area" d="M 0 22 L 14 20 L 28 18 L 42 16 L 56 17 L 70 13 L 84 9 L 100 5 L 100 28 L 0 28 Z"/><path d="M 0 22 L 14 20 L 28 18 L 42 16 L 56 17 L 70 13 L 84 9 L 100 5"/></svg>
+        </div>
+        <div class="tile">
+          <div class="tile-label">Hours tap-throughs</div>
+          <div class="tile-value">412</div>
+          <div class="tile-up">+9%</div>
+          <svg class="tile-spark" viewBox="0 0 100 28" preserveAspectRatio="none"><path class="area" d="M 0 20 L 25 17 L 50 14 L 75 10 L 100 7 L 100 28 L 0 28 Z"/><path d="M 0 20 L 25 17 L 50 14 L 75 10 L 100 7"/></svg>
+        </div>
+        <div class="tile">
+          <div class="tile-label">Directions tap-throughs</div>
+          <div class="tile-value">298</div>
+          <div class="tile-up">+14%</div>
+          <svg class="tile-spark" viewBox="0 0 100 28" preserveAspectRatio="none"><path class="area" d="M 0 18 L 25 15 L 50 12 L 75 9 L 100 5 L 100 28 L 0 28 Z"/><path d="M 0 18 L 25 15 L 50 12 L 75 9 L 100 5"/></svg>
+        </div>
+        <div class="tile">
+          <div class="tile-label">Website tap-throughs</div>
+          <div class="tile-value">94</div>
+          <div class="tile-up">+22%</div>
+          <svg class="tile-spark" viewBox="0 0 100 28" preserveAspectRatio="none"><path class="area" d="M 0 22 L 25 18 L 50 14 L 75 10 L 100 6 L 100 28 L 0 28 Z"/><path d="M 0 22 L 25 18 L 50 14 L 75 10 L 100 6"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-tag">Neighbourhood comparison · The killer line</div>
+      <div class="killer">
+        <div>
+          <p class="killer-line">You're at <span class="accent">112%</span> of the average heat for bars in <span class="name">El Born</span> this week.</p>
+          <div class="killer-meta">
+            <span><strong>+12%</strong> above neighbourhood</span>
+            <span><strong>14 venues</strong> in comparison set</span>
+            <span>Trailing 7 days</span>
+          </div>
+        </div>
+        <div class="killer-chart">
+          <svg viewBox="0 0 280 100" preserveAspectRatio="none">
+            <text class="label-mini" x="0" y="12">Mon</text>
+            <text class="label-mini" x="46" y="12">Tue</text>
+            <text class="label-mini" x="92" y="12">Wed</text>
+            <text class="label-mini" x="138" y="12">Thu</text>
+            <text class="label-mini" x="184" y="12">Fri</text>
+            <text class="label-mini" x="230" y="12">Sat</text>
+            <line x1="0" y1="80" x2="280" y2="80" stroke="var(--border)" stroke-width="0.5"/>
+            <line x1="0" y1="50" x2="280" y2="50" stroke="var(--border)" stroke-width="0.5" stroke-dasharray="2 3"/>
+            <path d="M 0 60 Q 30 55 60 50 Q 90 48 120 45 Q 150 42 180 40 Q 210 38 250 35" stroke="var(--text-tertiary)" stroke-width="1.5" stroke-dasharray="3 3" fill="none"/>
+            <path d="M 0 65 Q 30 55 60 45 Q 90 38 120 32 Q 150 28 180 25 Q 210 22 250 20" stroke="var(--coral)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <circle cx="250" cy="20" r="3.5" fill="var(--coral)"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-tag">Check-ins this week</div>
+      <div class="checkin-block">
+        <div>
+          <div class="checkin-num">487</div>
+          <div class="checkin-label">Last 7 days</div>
+          <div class="checkin-up">+62 vs. last week</div>
+        </div>
+        <div class="checkin-trend">
+          <svg viewBox="0 0 280 80" preserveAspectRatio="none">
+            <text class="label-mini" x="0" y="78">8 weeks ago</text>
+            <text class="label-mini" x="220" y="78">This week</text>
+            <line x1="0" y1="65" x2="280" y2="65" stroke="var(--border)" stroke-width="0.5"/>
+            <path d="M 0 50 Q 35 48 70 42 Q 105 38 140 32 Q 175 28 210 22 Q 240 18 270 14 L 270 65 L 0 65 Z" fill="var(--text-secondary)" opacity="0.08"/>
+            <path d="M 0 50 Q 35 48 70 42 Q 105 38 140 32 Q 175 28 210 22 Q 240 18 270 14" stroke="var(--text-secondary)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <circle cx="270" cy="14" r="3" fill="var(--text-primary)"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-tag">Peak hours · Trailing 4 weeks</div>
+      <div class="pattern-block">
+        <div class="pattern-head">
+          <div class="pattern-title">When Bar Marsella peaks</div>
+          <div class="pattern-detail">Avg. peak: <span class="peak">23:00–00:30</span></div>
+        </div>
+        <div class="peak-chart">
+          <svg viewBox="0 0 600 130" preserveAspectRatio="none">
+            <line x1="0" y1="105" x2="600" y2="105" stroke="var(--border)" stroke-width="0.5"/>
+            <text x="0" y="122" class="label-mini">18:00</text>
+            <text x="120" y="122" class="label-mini">20:00</text>
+            <text x="240" y="122" class="label-mini">22:00</text>
+            <text x="360" y="122" class="label-mini">00:00</text>
+            <text x="480" y="122" class="label-mini">02:00</text>
+            <text x="572" y="122" class="label-mini">04:00</text>
+            <path d="M 0 100 Q 50 97 100 90 Q 150 80 200 65 Q 250 45 300 30 Q 320 27 340 27 Q 380 35 420 55 Q 470 75 520 90 Q 560 97 600 101 L 600 105 L 0 105 Z" fill="var(--coral)" opacity="0.12"/>
+            <path d="M 0 100 Q 50 97 100 90 Q 150 80 200 65 Q 250 45 300 30 Q 320 27 340 27 Q 380 35 420 55 Q 470 75 520 90 Q 560 97 600 101" stroke="var(--coral)" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <line x1="320" y1="27" x2="320" y2="105" stroke="var(--coral)" stroke-width="0.5" stroke-dasharray="3 3"/>
+            <text x="328" y="42" font-size="11" fill="var(--coral)" font-weight="500" font-family="var(--sans)">Peak · 23:30</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-tag">Day-of-week pattern · Trailing 4 weeks</div>
+      <div class="pattern-block">
+        <div class="pattern-head">
+          <div class="pattern-title">Average heat per weekday</div>
+          <div class="pattern-detail">Strongest: <span class="peak">Thursday</span></div>
+        </div>
+        <div class="dow-chart">
+          <div class="dow-day"><div class="dow-bar" style="height: 35%;"><span class="dow-bar-value">42</span></div><div class="dow-label">Mon</div></div>
+          <div class="dow-day"><div class="dow-bar" style="height: 48%;"><span class="dow-bar-value">58</span></div><div class="dow-label">Tue</div></div>
+          <div class="dow-day"><div class="dow-bar" style="height: 60%;"><span class="dow-bar-value">73</span></div><div class="dow-label">Wed</div></div>
+          <div class="dow-day"><div class="dow-bar peak" style="height: 92%;"><span class="dow-bar-value">112</span></div><div class="dow-label">Thu</div></div>
+          <div class="dow-day"><div class="dow-bar" style="height: 84%;"><span class="dow-bar-value">102</span></div><div class="dow-label">Fri</div></div>
+          <div class="dow-day"><div class="dow-bar" style="height: 88%;"><span class="dow-bar-value">107</span></div><div class="dow-label">Sat</div></div>
+          <div class="dow-day"><div class="dow-bar" style="height: 42%;"><span class="dow-bar-value">51</span></div><div class="dow-label">Sun</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="vd-footer">
+    <span>Heat Intelligence · Bar Marsella · venue ID 0019</span>
+    <div class="vd-footer-links"><a>Buy a Spotlight</a><a>Email support</a><a>Logout</a></div>
+  </div>
+</div>
+
+</body>
+</html>

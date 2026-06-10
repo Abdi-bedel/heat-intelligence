@@ -1,0 +1,23 @@
+{
+  "name": "heat-intelligence",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@9.12.0",
+  "scripts": {
+    "dev": "pnpm -r --parallel --filter='./apps/*' dev",
+    "dev:portal": "pnpm --filter @heat/portal dev",
+    "dev:marketing": "pnpm --filter @heat/marketing dev",
+    "dev:api": "pnpm --filter @heat/api dev",
+    "build": "pnpm -r build",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "pnpm -r lint",
+    "create-venue": "bun run apps/api/scripts/create-venue.ts",
+    "privacy-gate": "bun run apps/api/scripts/privacy-gate-test.ts",
+    "recompute": "bun run apps/api/scripts/recompute.ts"
+  },
+  "devDependencies": {
+    "eslint": "8.57.0",
+    "eslint-config-next": "15.0.3",
+    "typescript": "5.4.5"
+  }
+}

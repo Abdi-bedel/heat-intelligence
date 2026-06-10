@@ -1,0 +1,99 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Portal: Dev Server (9000)",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "/opt/homebrew/bin/pnpm dev:portal",
+      "cwd": "${workspaceFolder}",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "group": "dev"
+      }
+    },
+    {
+      "name": "Marketing: Dev Server (9001)",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "/opt/homebrew/bin/pnpm dev:marketing",
+      "cwd": "${workspaceFolder}",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "group": "dev"
+      }
+    },
+    {
+      "name": "API: Dev Server (8787)",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "/opt/homebrew/bin/pnpm dev:api",
+      "cwd": "${workspaceFolder}",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "group": "dev"
+      }
+    },
+    {
+      "name": "Portal: Open in Browser",
+      "type": "pwa-chrome",
+      "request": "launch",
+      "preLaunchTask": "wait-for-portal-9000",
+      "url": "http://localhost:9000",
+      "webRoot": "${workspaceFolder}/apps/portal"
+    },
+    {
+      "name": "Marketing: Open in Browser",
+      "type": "pwa-chrome",
+      "request": "launch",
+      "preLaunchTask": "wait-for-marketing-9001",
+      "url": "http://localhost:9001",
+      "webRoot": "${workspaceFolder}/apps/marketing"
+    },
+    {
+      "name": "API: Debug (Bun Inspect)",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "/Users/abdibedel/.bun/bin/bun",
+      "runtimeArgs": [
+        "--inspect-wait",
+        "run",
+        "src/index.ts"
+      ],
+      "cwd": "${workspaceFolder}/apps/api",
+      "console": "integratedTerminal",
+      "skipFiles": [
+        "<node_internals>/**"
+      ]
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Dev: Portal + Marketing + API",
+      "configurations": [
+        "Portal: Dev Server (9000)",
+        "Marketing: Dev Server (9001)",
+        "API: Dev Server (8787)"
+      ]
+    },
+    {
+      "name": "Dev + Open Portal",
+      "configurations": [
+        "Portal: Dev Server (9000)",
+        "API: Dev Server (8787)",
+        "Portal: Open in Browser"
+      ]
+    },
+    {
+      "name": "Dev + Open Marketing",
+      "configurations": [
+        "Marketing: Dev Server (9001)",
+        "API: Dev Server (8787)",
+        "Marketing: Open in Browser"
+      ]
+    }
+  ]
+}

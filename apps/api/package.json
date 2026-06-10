@@ -1,0 +1,23 @@
+{
+  "name": "@heat/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun run --hot src/index.ts",
+    "start": "bun run src/index.ts",
+    "build": "bun build src/index.ts --outdir dist --target bun",
+    "typecheck": "tsc --noEmit",
+    "lint": "echo \"(api lint not configured yet)\""
+  },
+  "dependencies": {
+    "@heat/contracts": "workspace:*",
+    "@supabase/supabase-js": "2.45.4",
+    "hono": "4.6.3",
+    "jose": "5.9.4"
+  },
+  "devDependencies": {
+    "@types/bun": "1.1.10",
+    "typescript": "5.4.5"
+  }
+}
